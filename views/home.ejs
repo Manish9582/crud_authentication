@@ -1,0 +1,60 @@
+<%- include('partials/header') %>
+
+<header class="w-full bg-green-600 text-white">
+  <div class="max-w-6xl mx-auto flex justify-between items-center py-4 px-6">
+    <h1 class="text-xl font-bold">My App</h1>
+    <nav class="space-x-6">
+      <a href="/admin/sign" class="hover:underline">Sign</a>
+      <a href="/admin/login" class="hover:underline">Login</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto mt-10">
+  <div class="flex justify-between my-3 px-2 items-center">
+    <div>
+      <p class="font-semibold text-2xl">Products List</p>
+    </div>
+    <div class="bg-blue-700 text-white py-2 px-3 rounded-md">
+      <a href="/product/add-product">Add Product</a>
+    </div>
+  </div>
+  <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-gray-300 rounded-md  border-default">
+    <table class="w-full text-sm text-left rtl:text-right text-body">
+      <thead class="text-sm text-body bg-neutral-secondary-medium border-b border-default-medium">
+        <tr>
+          <th scope="col" class="px-6 py-3 font-medium">Product name</th>
+          <th scope="col" class="px-6 py-3 font-medium">Color</th>
+          <th scope="col" class="px-6 py-3 font-medium">Category</th>
+          <th scope="col" class="px-6 py-3 font-medium">Price</th>
+          <th scope="col" class="px-6 py-3 font-medium text-center">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-neutral-primary-soft border-default">
+          <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+            Apple MacBook Pro 17"
+          </th>
+          <td class="px-6 py-4">
+            Silver
+          </td>
+          <td class="px-6 py-4">
+            Laptop
+          </td>
+          <td class="px-6 py-4">
+            $2999
+          </td>
+          <td class="px-6 py-4 flex justify-between">
+            <a href="#" class="font-medium text-fg-brand hover:underline">Show</a>
+            <a href="#" class="font-medium text-fg-brand hover:underline">Edit</a>
+            <a href="#" class="font-medium text-fg-brand hover:underline">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+
+<%- include('partials/footer') %>
