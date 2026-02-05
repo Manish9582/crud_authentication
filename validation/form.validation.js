@@ -19,7 +19,16 @@ const AdminFormValidator = [
 
     body('password')
         .notEmpty().withMessage('Password is required').bail()
-        .isLength({ min: 8 }).withMessage('Password must be at least 5 chars'),
+        .isLength({ min: 8 }).withMessage('Password must be at least 8 chars'),
 ];
 
-module.exports = { AdminFormValidator };
+const LoginValidator = [
+    body('email')
+        .notEmpty().withMessage('Email is required').bail()
+        .isEmail().withMessage('Enter only emial'),
+
+    body('password')
+        .notEmpty().withMessage('Password is required').bail()
+        .isLength({ min: 8 }).withMessage('Password must be at least 8 chars'),
+]
+module.exports = { AdminFormValidator,LoginValidator };

@@ -3,8 +3,8 @@ const formModel = require("../models/admin.model")
 const bcrypt = require('bcryptjs')
 
 
-exports.AdminSign = (req, res) => { res.render('sign', { errors: 0 }) }
-exports.AdminLogin = (req, res) => { res.render('login') }
+exports.AdminSign = (req, res) => { res.render('sign', { errors: [] }) }
+exports.AdminLogin = (req, res) => { res.render('login', { errors: [] }) }
 exports.Admindashboard = (req, res) => {
     res.render('home')
 }
@@ -20,7 +20,7 @@ exports.AddAdmin = async (req, res) => {
         const { name, email, city, zip, password } = req.body;
         let storePassHash = await bcrypt.hash(password, 10)
         const storedata = await formModel.create({
-            name,email,city,
+            name, email, city,
             zipCode: zip,
             password: storePassHash
         });
@@ -32,3 +32,30 @@ exports.AddAdmin = async (req, res) => {
     }
 };
 
+
+exports.AdminLoginMethod = async (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return res.render('login', { errors: errors.array() })
+    }
+    const { email, password } = req.body;
+    try {
+        let findAdmin = await formModel.findOne({ email })
+        if (!findAdmin) {
+            return res.render('login', {
+                message: { msg: "Email is not found" },
+                errors: []
+            });
+        }
+        const isMatch = await bcrypt.compare(password, findAdmin.password);
+        if (!isMatch) {
+            return res.render('login', {
+                message: { msg: "Wrong password" },
+                errors: []
+            });
+        }
+        return res.send("Login Successful");
+    } catch {
+        return res.render('login', { status: 'fail', message: "Please try again" });
+    }
+}
