@@ -1,5 +1,5 @@
 const express = require('express');
-const { AdminLogin, AdminSign, Admindashboard, AddAdmin, AdminLoginMethod }
+const { AdminLogin, AdminSign, Admindashboard, AddAdmin, AdminLoginMethod, AdminLogout }
     = require('../controller/form.controller');
 const { AdminFormValidator, LoginValidator } = require('../validation/form.validation');
 
@@ -11,5 +11,5 @@ router.get('/login', AdminLogin)
 router.get('/', Admindashboard)
 router.post('/add-new/admin', AdminFormValidator,AddAdmin)
 router.post('/login/admin', LoginValidator,AdminLoginMethod)
-
+router.get('/logout',AdminLogout);
 module.exports = router

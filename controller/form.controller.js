@@ -54,8 +54,22 @@ exports.AdminLoginMethod = async (req, res) => {
                 errors: []
             });
         }
-        return res.send("Login Successful");
+        let addSessionData = req.session.admin = {
+            name: findAdmin.name,
+            id: findAdmin._id,
+            email: findAdmin.email
+        }
+        if (addSessionData) {
+            return res.redirect("/");
+        }
+
     } catch {
         return res.render('login', { status: 'fail', message: "Please try again" });
     }
 }
+
+
+exports.AdminLogout = (req, res) => {
+    delete req.session.admin;
+    res.redirect('/login');
+};
