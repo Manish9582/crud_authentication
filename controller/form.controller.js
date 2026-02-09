@@ -1,12 +1,17 @@
 const { validationResult } = require("express-validator")
 const formModel = require("../models/admin.model")
 const bcrypt = require('bcryptjs')
+const createModelProduct = require("../models/product.model")
 
 
 exports.AdminSign = (req, res) => { res.render('sign', { errors: [] }) }
 exports.AdminLogin = (req, res) => { res.render('login', { errors: [] }) }
-exports.Admindashboard = (req, res) => {
-    res.render('home')
+exports.Admindashboard = async (req, res) => {
+    const sendProductList =await createModelProduct.find()
+    res.render('home', {
+        errors: [],
+        data: sendProductList,
+    })
 }
 
 exports.AddAdmin = async (req, res) => {

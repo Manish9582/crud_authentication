@@ -29,37 +29,51 @@
       <thead class="text-sm text-body bg-neutral-secondary-medium border-b border-default-medium">
         <tr>
           <th scope="col" class="px-6 py-3 font-medium">Product name</th>
-          <th scope="col" class="px-6 py-3 font-medium">Color</th>
           <th scope="col" class="px-6 py-3 font-medium">Category</th>
           <th scope="col" class="px-6 py-3 font-medium">Price</th>
+          <th scope="col" class="px-6 py-3 font-medium">description</th>
           <th scope="col" class="px-6 py-3 font-medium text-center">Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="bg-neutral-primary-soft border-default">
-          <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-            Apple MacBook Pro 17"
-          </th>
-          <td class="px-6 py-4">
-            Silver
-          </td>
-          <td class="px-6 py-4">
-            Laptop
-          </td>
-          <td class="px-6 py-4">
-            $2999
-          </td>
-          <td class="px-6 py-4 flex justify-between">
-            <a href="#" class="font-medium text-fg-brand hover:underline">Show</a>
-            <a href="#" class="font-medium text-fg-brand hover:underline">Edit</a>
-            <a href="#" class="font-medium text-fg-brand hover:underline">Delete</a>
-          </td>
-        </tr>
+    <% data.forEach((item) => { %>
+      <tr class="bg-neutral-primary-soft border-default" id="row-<%= item._id %>">
+        <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+          <%= item.productName %>
+        </th>
+        <td class="px-6 py-4">
+          <%= item.category %>
+        </td>
+        <td class="px-6 py-4">
+          $<%= item.price %>
+        </td>
+        <td class="px-6 py-4">
+          <%= item.productDetails %>
+        </td>
+        <td class="px-6 py-4 flex justify-between">
+          <div class="font-medium text-fg-brand cursor-pointer" onclick="showSingleData('<%= item._id %>')">Show</div>
+          <a href="#" class="font-medium text-fg-brand hover:underline">Edit</a>
+          <a href="/product/delete/<%= item._id %>" onclick="DeleteItem('<%= item._id %>')" class="font-medium text-fg-brand hover:underline">Delete</a>
+        </td>
+      </tr>
+      <% }) %>
+
       </tbody>
-    </table>
+      </table>
   </div>
 
-</main>
+  </main>
 
+  <div id="ShowSingleDataCard" class="fixed inset-0 bg-[rgba(0,0,0,0.4)] hidden items-center justify-center">
 
-<%- include('partials/footer') %>
+    <div id="modalContent" class="bg-white p-5 rounded-md w-[350px] relative">
+
+      <div id="closeBtn" class="absolute top-2 right-3 cursor-pointer text-xl">✖</div>
+
+      <div id="modalBody"></div>
+
+    </div>
+  </div>
+
+  <script src="/js/home.js"></script>
+  <%- include('partials/footer') %>

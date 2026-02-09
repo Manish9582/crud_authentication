@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const productModel = new mongoose.Schema({
     porductImage: {
-        type: Image,
+        type: String,
         required: true,
     },
     porductSamples: {
-        type: Image,
+        type: [String],
         required: true,
     },
     productName: {
