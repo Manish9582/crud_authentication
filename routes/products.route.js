@@ -19,6 +19,6 @@ router.post(
 );
 
 router.get('/get-single/data/:id',showSingleCard);
-router.get('/delete/:id',DeleteSingleItem)
+router.delete('/delete/:id',DeleteSingleItem)
 
 module.exports = router

@@ -34,7 +34,7 @@ async function DeleteItem(id) {
     try {
         let response = await fetch(`/product/delete/${id}`);
         let data = await response.json();
-
+        console.log(data)
         if (data.message === "success") {
             document.getElementById(`row-${id}`).remove();
         }

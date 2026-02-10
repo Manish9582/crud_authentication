@@ -1,5 +1,7 @@
 const { validationResult } = require("express-validator")
 const createModelProduct = require("../models/product.model")
+const path = require('path');
+const fs = require('fs')
 
 exports.AdminAddProduct = (req, res) => { res.render('products/add-product', { errors: [] }) }
 exports.AdminEditProduct = (req, res) => { res.render('products/edit-product') }
@@ -21,9 +23,11 @@ exports.AddProduct = async (req, res) => {
             price: req.body.price,
             productDetails: req.body['product-details']
         })
-        if (dataSubmit) {
-            res.send("Product uploaded successfully");
-        }
+        const sendProductList = await createModelProduct.find()
+        res.render('home', {
+            errors: [],
+            data: sendProductList,
+        })
     } catch (err) {
         console.log(err);
         res.send("Error uploading product");
@@ -47,18 +51,37 @@ exports.showSingleCard = async (req, res) => {
     }
 };
 
-exports.DeleteSingleItem =async (req, res) => {
+exports.DeleteSingleItem = async (req, res) => {
     try {
         const id = req.params.id;
-        const sendSingle = await createModelProduct.DeleteById(id);
-        if (!sendSingle) {
-            return res.status(404).json({ message: "Data not found", id: id });
+        const item = await createModelProduct.findById(id);
+
+        if (!item) {
+            return res.status(404).json({ message: "Data not found" });
         }
-        res.json({
-            status: "success",
-            message: "Delete item successfully"
-        });
+
+        const baseDir = path.join(__dirname, '..', 'public', 'images');
+        const singlePath = path.join(baseDir, item.porductImage);
+        if (fs.existsSync(singlePath)) {
+            fs.unlinkSync(singlePath);
+        }
+
+        for (const img of item.porductSamples) {
+            const imgPath = path.join(baseDir, img);
+            if (fs.existsSync(imgPath)) {
+                fs.unlinkSync(imgPath);
+            }
+        }
+
+        await item.deleteOne();
+
+        const sendProductList = await createModelProduct.find()
+        res.render('home', {
+            errors: [],
+            data: sendProductList,
+        })
+
     } catch (err) {
         res.status(500).json({ message: "Error", error: err.message });
     }
-}
+};
