@@ -31,15 +31,21 @@ async function showSingleData(id) {
 }
 
 async function DeleteItem(id) {
-    try {
-        let response = await fetch(`/product/delete/${id}`);
-        let data = await response.json();
-        console.log(data)
-        if (data.message === "success") {
-            document.getElementById(`row-${id}`).remove();
-        }
+    if (!confirm("Are you sure?")) return;
 
+    try {
+        let response = await fetch(`/product/delete/${id}`, {
+            method: 'DELETE',
+        });
+
+        let data = await response.json();
+        if (data.message === "success") {
+            const element = document.getElementById(`row-${id}`);
+            if (element) element.remove();
+        } else {
+            alert("Delete failed: " + data.message);
+        }
     } catch (err) {
-        console.log('Route is not working', err);
+        console.error('Error:', err);
     }
 }

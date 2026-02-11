@@ -1,55 +1,91 @@
 <%- include('../partials/header') %>
 
-<div class="bg-white  max-w-5xl mx-auto border border-gray-600 rounded-lg shadow relative m-10">
-  <div class="flex items-start justify-between p-5 border-b rounded-t">
-    <h3 class="text-xl font-semibold">
-      Edit product
-    </h3>
-    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-toggle="product-modal">
-      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-      </svg>
-    </button>
-  </div>
+<div class="bg-gray-50 min-h-screen py-12 px-4">
+    <div class="bg-white max-w-4xl mx-auto border border-gray-200 rounded-xl shadow-lg relative">
+        
+        <div class="flex items-center justify-between p-6 border-b border-gray-100">
+            <h3 class="text-2xl font-bold text-gray-800">
+                Edit Product
+            </h3>
+            <a href="/products" class="text-gray-400 hover:text-gray-600 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </a>
+        </div>
 
-  <div class="p-6 space-y-6">
-    <form action="#">
-      <div class="grid grid-cols-6 gap-6">
-        <div class="col-span-6 sm:col-span-3">
-          <label for="product-image" class="text-sm font-medium text-gray-900 block mb-2">Product Image</label>
-          <input type="file" name="product-image" id="product-image" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Apple Imac 27”" required="">
-        </div>
-        <div class="col-span-6 sm:col-span-3">
-          <label for="product-smaples" class="text-sm font-medium text-gray-900 block mb-2">Porduct Samples</label>
-          <input type="file" name="product-smaples" id="product-smaples" multiple class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Electronics" required="">
-        </div>
-        <div class="col-span-6 sm:col-span-3">
-          <label for="product-name" class="text-sm font-medium text-gray-900 block mb-2">Product Name</label>
-          <input type="text" name="product-name" id="product-name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Apple Imac 27”" required="">
-        </div>
-        <div class="col-span-6 sm:col-span-3">
-          <label for="category" class="text-sm font-medium text-gray-900 block mb-2">Category</label>
-          <input type="text" name="category" id="category" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Electronics" required="">
-        </div>
-        <div class="col-span-6 sm:col-span-3">
-          <label for="brand" class="text-sm font-medium text-gray-900 block mb-2">Brand</label>
-          <input type="text" name="brand" id="brand" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Apple" required="">
-        </div>
-        <div class="col-span-6 sm:col-span-3">
-          <label for="price" class="text-sm font-medium text-gray-900 block mb-2">Price</label>
-          <input type="number" name="price" id="price" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="$2300" required="">
-        </div>
-        <div class="col-span-full">
-          <label for="product-details" class="text-sm font-medium text-gray-900 block mb-2">Product Details</label>
-          <textarea id="product-details" rows="6" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-4" placeholder="Details"></textarea>
-        </div>
-      </div>
-    </form>
-  </div>
+        <div class="p-8">
+            <form method="POST" action="/product/update/<%= data._id %>" enctype="multipart/form-data" class="space-y-8">
+                
+                <div class="bg-gray-50 p-6 rounded-lg border border-dashed border-gray-300">
+                    <h4 class="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-4">Product Media</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="space-y-3">
+                            <label class="block text-xs font-bold text-gray-500 uppercase">Main Image</label>
+                            <div class="relative group w-32 h-32">
+                                <img src="/images/<%= data.porductImage %>" class="w-full h-full object-cover rounded-lg border-2 border-white shadow-md" />
+                                <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                                    <span class="text-white text-xs">Replace</span>
+                                </div>
+                            </div>
+                            <input type="hidden" name="productImageOld" value="<%= data.porductImage %>">
+                            <input type="file" name="product-image" class="block w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-cyan-50 file:text-cyan-700 hover:file:bg-cyan-100 cursor-pointer" />
+                        </div>
 
-  <div class="p-6 border-t border-gray-200 rounded-b">
-    <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="submit">Save all</button>
-  </div>
+                        <div class="md:col-span-3">
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-3">Gallery Samples</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                <% data.porductSamples.forEach((img, index) => { %>
+                                <div class="bg-white p-2 rounded-lg border border-gray-200 shadow-sm">
+                                    <img src="/images/<%= img %>" class="w-full h-20 object-cover rounded mb-2" />
+                                    <input type="hidden" name="oldSamples[<%= index %>]" value="<%= img %>">
+                                    <input type="file" name="newSample_<%= index %>" class="text-[10px] w-full file:bg-gray-100 file:border-0 file:rounded file:px-2">
+                                </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                    <div class="col-span-2">
+                        <label for="product-name" class="block text-sm font-semibold text-gray-700 mb-2">Product Name</label>
+                        <input type="text" name="product-name" id="product-name" value="<%= data.productName %>" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all" placeholder="e.g. Apple iMac 27”">
+                    </div>
+
+                    <div>
+                        <label for="category" class="block text-sm font-semibold text-gray-700 mb-2">Category</label>
+                        <input type="text" name="category" id="category" value="<%= data.category %>" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all" placeholder="Electronics">
+                    </div>
+
+                    <div>
+                        <label for="brand" class="block text-sm font-semibold text-gray-700 mb-2">Brand</label>
+                        <input type="text" name="brand" id="brand" value="<%= data.brand %>" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all" placeholder="Apple">
+                    </div>
+
+                    <div>
+                        <label for="price" class="block text-sm font-semibold text-gray-700 mb-2">Price ($)</label>
+                        <input type="number" name="price" id="price" value="<%= data.price %>" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all" placeholder="2300">
+                    </div>
+
+                    <div class="col-span-2">
+                        <label for="product-details" class="block text-sm font-semibold text-gray-700 mb-2">Product Description</label>
+                        <textarea id="product-details" name="product-details" rows="5" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 outline-none transition-all" placeholder="Describe the product features..."><%= data.productDetails %></textarea>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-100">
+                    <button type="button" class="px-6 py-2.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:ring-4 focus:ring-gray-100">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-6 py-2.5 text-sm font-medium text-white bg-cyan-600 rounded-lg hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 transition-shadow shadow-md">
+                        Update Product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <%- include('../partials/footer') %>

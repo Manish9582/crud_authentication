@@ -52,8 +52,8 @@
         </td>
         <td class="px-6 py-4 flex justify-between">
           <div class="font-medium text-fg-brand cursor-pointer" onclick="showSingleData('<%= item._id %>')">Show</div>
-          <a href="#" class="font-medium text-fg-brand hover:underline">Edit</a>
-          <a href="/product/delete/<%= item._id %>" onclick="DeleteItem('<%= item._id %>')" class="font-medium text-fg-brand hover:underline">Delete</a>
+          <a href="/product/edit/<%= item._id %>" class="font-medium text-fg-brand hover:underline">Edit</a>
+          <a  onclick="DeleteItem('<%= item._id %>')" class="font-medium text-fg-brand cursor-pointer">Delete</a>
         </td>
       </tr>
       <% }) %>
